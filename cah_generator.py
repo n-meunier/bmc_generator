@@ -15,9 +15,10 @@ def answer_getter(nb_blanks):
     # for n in range(nb_blanks):
         rand_answer = random.choice(wlist)
         if seen_answers.has_key(rand_answer):
-            print('Already seen: %s' % str(rand_answer))
+            # print('Already seen: %s' % str(rand_answer))
+            seen_answers[rand_answer] += 1
         else:
-            print('New number: %s' % str(rand_answer))
+            # print('New answer: %s' % str(rand_answer))
             answers_list.append(rand_answer)
             seen_answers[rand_answer] = 1
     return answers_list
@@ -30,7 +31,8 @@ def add_to_list(input, filelist):
     max_match = 'nothing'
     for line in filelist:
         _cpt += 1
-        ratio = SequenceMatcher(a=line, b=input).ratio()
+        ratio = SequenceMatcher(a=str(line).lower(),
+                                b=str(input).lower()).ratio()
         if ratio > max_ratio:
             max_ratio = ratio
             max_match = line
@@ -38,13 +40,15 @@ def add_to_list(input, filelist):
             exist = True
             match = line
             break
-    print('Stopped at %s' % str(_cpt))
-    print('Already exists? %s' % str(exist))
+    # print('Stopped at %s' % str(_cpt))
+    # print('Already exists? %s' % str(exist))
     if exist:
-        print('Match: %s (%0.2f)' % (str(match), ratio))
+        # print('Match: %s (%0.2f)' % (str(match), ratio))
+        return False
     else:
-        print('No match (Closest: %s with %0.2f), thank you for your input!' %
-              (str(max_match), max_ratio))
+        # print('No match (Closest: %s with %0.2f), thank you for your input!' %
+        #       (str(max_match), max_ratio))
+        return True
 
 blank_pattern = '(____)'
 
@@ -62,20 +66,20 @@ with open(wfile, 'rb') as f:
 nb_wlist = len(wlist)
 
 sample = random.choice(blist)
-print('Sample: %s (%s)' % (sample, str(type(sample))))
+# print('Sample: %s (%s)' % (sample, str(type(sample))))
 
 match = re.findall(blank_pattern, sample)
 if match:
     nb_blanks = len(match)
-    print('Found %s match(es).' % str(nb_blanks))
+    # print('Found %s match(es).' % str(nb_blanks))
 
     words = sample.split('____')
 
     answers = answer_getter(nb_blanks)
 
-    print('Answers:')
-    for a in answers:
-        print a
+    # print('Answers:')
+    # for a in answers:
+    #     print a
 
     line = sample
     for an in answers:
@@ -84,7 +88,7 @@ if match:
 
     print line
 
-add_to_list('sa bite', wlist)
-add_to_list('toto', wlist)
+# add_to_list('sa bite', wlist)
+# add_to_list('toto', wlist)
 
-print(sample)
+# print(sample)

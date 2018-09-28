@@ -49,7 +49,7 @@ setup(
                           '/README.md').read(),
     version=__version__,
     author=__author__,
-    url= __url__,
+    url=__url__,
     platforms=PLATFORMS,
     packages=find_packages(),
     include_package_data=True

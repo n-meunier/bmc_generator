@@ -98,7 +98,7 @@ def add_to_list(input, filelist):
 
 
 # [MAIN]-----------------------------------------------------------------------
-def main():
+def bmc_generator():
     """ Main function
     :return: funny sentence
     """
